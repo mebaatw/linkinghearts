@@ -32,7 +32,7 @@ const container = ({ children }) => (
       <div className={`${Styles.w3Row} ${Styles.w3Padding} ${Styles.w3Border}`}>
 
       {/**** Main Entries ****/}
-      <div className={`${Styles.w4Col} ${Styles.l8} ${Styles.s12}`} style={{padding:'0px', margin:'0px'}}>
+      <div className={`${Styles.w3Col} ${Styles.l9} `} style={{padding:'0px', margin:'0px'}}>
 
       {/**** Photo Grid ******/}
 

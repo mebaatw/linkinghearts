@@ -2,13 +2,14 @@ import React from "react"
 import {Link, graphql } from 'gatsby'
 
 import Layout from "../components/layoutMain"
-import Container from "../components/view/container"
+//import Container from "../components/view/container"
 import Styles from '../components/view/social-css-modules.module.css';
 //import Content from "../components/view/contentMain"
+import Img from "gatsby-image"
 
 const IndexPage = ({ data }) => (
   <Layout>
-    <Container>
+   
   
       <>
             {/* w3-content defines a container for fixed size centered content, 
@@ -16,26 +17,32 @@ const IndexPage = ({ data }) => (
             <div className={`${Styles.w3Content}`} style={{maxWidth:'1600px'}}>
                 
                 { /*-- Grid --*/}
-                <div className={`${Styles.w3Row} ${Styles.w3Padding} ${Styles.w3Border}`}>
+                <div className={`${Styles.w3Row} ${Styles.w3Padding} ${Styles.w3Border}`} style={{backgroundColor:'#e0eee0'}}>
 
                     {/**** Main Entries ****/}
-                    <div className={`${Styles.w4Col} ${Styles.l8} ${Styles.s12}`}>
+                    <div className={`${Styles.w4Col} ${Styles.l8} ${Styles.s12}`} >
                         
                         {/**** First Photo Grid ******/}
-                        <div className={`${Styles.w3rowpadding}`}>
+                        <div className={`${Styles.gridContainer} ${Styles.w3rowpadding}`}>
                           
                             {data.allMarkdownRemark.group.map((g,i) =>(
                               <div className={`${Styles.w3Third} ${Styles.w3Container} `}>
                                 <Link  to={g.fieldValue}>
+                                <div className={`${Styles.gridItem}`} style={{ width:'200px',padding:'0px', margin:'5px', backgroundColor:'#e0eee0',border:'1px solid black'}}>
                                   {data.allFile.edges==null||data.allFile.edges.length===0?'':
                                     data.allFile.edges.map(({node})=>(
                                         node.relativePath.indexOf(g.fieldValue)===-1?'':
-                                            <img src={node.childImageSharp.original.src} 
+                                        <>
+                                        <Img fixed={node.childImageSharp.fixed} />
+                                            {/** <img src={node.childImageSharp.original.src} 
                                                 alt=""
                                                 style={{width:'100%',height:'200px'}} className={`${Styles.w3HoverOpacity}`}    />
+                                            */}
+                                        </>
                                     ))
                                   }
                                       <center><b>{g.fieldValue}</b></center> 
+                                  </div>
                                 </Link>
                                   
                                   <br/><br/>
@@ -53,7 +60,7 @@ const IndexPage = ({ data }) => (
             </div>
             </>
 
-    </Container>
+    
     
   </Layout>
 )
@@ -77,6 +84,9 @@ query {
           childImageSharp{
             fluid(maxWidth: 300){
              ...GatsbyImageSharpFluid
+            }
+            fixed(width: 197, height: 197) {
+              ...GatsbyImageSharpFixed
             }
             original{
              src
